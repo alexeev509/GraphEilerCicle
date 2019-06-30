@@ -22,6 +22,28 @@ public class Main {
         }
     }
 
+    //    Искать все циклы и объединять их будем одной рекурсивной процедурой:
+//
+//    procedure FindEulerPath (V)
+//	1. перебрать все рёбра, выходящие из вершины V;
+//    каждое такое ребро удаляем из графа, и
+//    вызываем FindEulerPath из второго конца этого ребра;
+//	2. добавляем вершину V в ответ.
+//    Сложность этого алгоритма, очевидно, является линейной относительно числа рёбер.
+//
+//    Но этот же алгоритм мы можем записать в нерекурсивном варианте:
+//
+//    stack St;
+//    в St кладём любую вершину (стартовая вершина);
+//    пока St не пустой
+//    пусть V - значение на вершине St;
+//    если степень(V) = 0, то
+//    добавляем V к ответу;
+//    снимаем V с вершины St;
+//    иначе
+//    находим любое ребро, выходящее из V;
+//    удаляем его из графа;
+//    второй конец этого ребра кладём в St;
     private static void findTheCicle() {
         String answer="";
         Stack<Integer> stackOfV=new Stack<>();
@@ -32,8 +54,7 @@ public class Main {
             if(ajectiveEdges.size()==0) {
                 answer += currentV + " ";
                 stackOfV.pop();
-            }
-            else {
+            } else {
                 Integer ajectiveV=ajectiveEdges.get(0);
                 ajectiveEdges.remove(0);
                 mapOfEdges.get(ajectiveV).remove(currentV);
@@ -59,7 +80,8 @@ public class Main {
         return true;
     }
 
-    public static int countOfComponentsOfConnective(int currentNodeNumber,int countOfComponents){
+    //If we have >1 componentsof connective or digit of V is not eve (x/2!=0) we cant find Eiler graph
+    public static int countOfComponentsOfConnective(int currentNodeNumber, int countOfComponents){
         if(currentNodeNumber>V)
             return countOfComponents;
         if(mapOfNodes.get(currentNodeNumber))
